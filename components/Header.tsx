@@ -20,54 +20,40 @@ export default function Header() {
 
   return (
     <>
-      {/* Sticky Navbar với backdrop-blur */}
-      <header className="fixed top-0 w-full bg-white/80 dark:bg-gray-950/80 backdrop-blur-md z-50 border-b border-gray-200 dark:border-gray-800 transition-colors duration-300">
-        <div className="container mx-auto px-6 h-16 flex items-center justify-between">
-          
-          {/* Brand Logo */}
-          <h1 className="text-xl font-bold tracking-tighter cursor-pointer">
+      <header className="fixed top-0 left-0 w-full bg-white/80 dark:bg-gray-950/80 backdrop-blur-md z-50 border-b border-gray-200 dark:border-gray-800 transition-colors duration-300">
+        <div className="container mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+          <h1 className="text-lg sm:text-xl font-bold tracking-tighter cursor-pointer shrink-0">
             GT8<span className="text-blue-600">Pro</span>
           </h1>
           
-          {/* Section Navigation Links */}
           <nav className="hidden md:flex gap-8 text-sm font-semibold">
             <a href="#features" className="hover:text-blue-600 dark:hover:text-blue-400 transition">Tính năng</a>
             <a href="#specs" className="hover:text-blue-600 dark:hover:text-blue-400 transition">Thông số</a>
             <a href="#pre-order" className="hover:text-blue-600 dark:hover:text-blue-400 transition">Đặt trước</a>
           </nav>
 
-          <div className="flex items-center gap-2 sm:gap-4">
-            {/* Nút Chatbot (Chuẩn bị cho task AI Chatbot) */}
-            <button className="p-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition relative" title="Hỗ trợ AI">
+          <div className="flex items-center gap-1 sm:gap-3 z-50">
+            <button className="p-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition">
               <MessageCircle size={20} />
             </button>
 
-            {/* Nút Giỏ Hàng */}
-            <button 
-              onClick={() => setIsCartOpen(true)}
-              className="p-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition relative"
-              title="Giỏ hàng"
-            >
+            <button onClick={() => setIsCartOpen(true)} className="p-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition relative">
               <ShoppingCart size={20} />
               {mounted && totalItems > 0 && (
-                <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-[10px] font-bold flex items-center justify-center rounded-full animate-in zoom-in">
+                <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-[10px] font-bold flex items-center justify-center rounded-full">
                   {totalItems}
                 </span>
               )}
             </button>
 
-            {/* Nút Dark Mode */}
             {mounted && (
-              <button
-                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="p-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition"
-                aria-label="Toggle Dark Mode"
-              >
+              <button onClick={() => setTheme(theme === "dark" ? "light" : "dark")} className="p-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition">
                 {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
               </button>
             )}
 
-            <button className="hidden sm:block ml-2 px-5 py-2 bg-blue-600 text-white rounded-full text-sm font-bold hover:bg-blue-700 transition shadow-md shadow-blue-500/20">
+            {/* Sửa class: Hiển thị nhỏ gọn trên Mobile thay vì ẩn hoàn toàn */}
+            <button className="px-3 py-1.5 sm:px-5 sm:py-2 bg-blue-600 text-white rounded-full text-xs sm:text-sm font-bold hover:bg-blue-700 transition shadow-md shrink-0 ml-1">
               Mua Ngay
             </button>
           </div>
