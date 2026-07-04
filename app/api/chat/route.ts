@@ -14,7 +14,7 @@ export async function POST(req: Request) {
 
     const prompt = `Bạn là trợ lý ảo nhiệt tình của website bán điện thoại Realme GT8 Pro.
     Thông số:
-    - Chip: Snapdragon 8 Elite (3nm, 4.32GHz) mạnh mẽ cân mọi game AAA.
+    - Chip: Snapdragon 8 Elite Gen 5 (3nm, 4.6GHz) mạnh mẽ cân mọi game AAA.
     - Màn hình: 6.78" LTPO AMOLED, 144Hz, Độ sáng 6000 nits.
     - Sạc & Pin: 100W siêu tốc, Tản nhiệt buồng hơi VC 3D lớn nhất phân khúc.
     - RAM/ROM: 16GB / 512GB.

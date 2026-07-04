@@ -133,7 +133,7 @@ export default function LandingPage() {
                 <table className="w-full text-left border-collapse min-w-[500px] sm:min-w-full">
                   <tbody>
                     {[
-                      { icon: <Cpu size={18} />, label: 'Bộ vi xử lý', value: 'Snapdragon 8 Elite (3nm, Nhân chính 4.32GHz)' },
+                      { icon: <Cpu size={18} />, label: 'Bộ vi xử lý', value: 'Snapdragon 8 Elite (3nm, Nhân chính 4.6GHz)' },
                       { icon: <Smartphone size={18} />, label: 'Màn hình hiển thị', value: '6.78" LTPO AMOLED, 144Hz, Max 6000 nits' },
                       { icon: <Sliders size={18} />, label: 'Bộ nhớ cấu hình', value: '16GB LPDDR5X RAM | 512GB UFS 4.0' },
                       { icon: <ShieldCheck size={18} />, label: 'Hệ điều hành', value: 'Realme UI 6.0 trên nền tảng Android 15' }

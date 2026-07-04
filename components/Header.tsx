@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { Moon, Sun, ShoppingCart, Heart } from "lucide-react";
-import { useStore } from "@/store/useStore"; // Trỏ vào Store mới
+import { useStore } from "@/store/useStore";
 import CartSidebar from "./CartSidebar";
 
 export default function Header() {
@@ -13,7 +13,6 @@ export default function Header() {
   
   const { theme, setTheme } = useTheme();
   
-  // Đọc state từ Zustand
   const cart = useStore((state) => state.cart);
   const wishlist = useStore((state) => state.wishlist);
   
@@ -38,8 +37,7 @@ export default function Header() {
           </h1>
           
           <div className="flex items-center gap-2 sm:gap-3 z-50">
-            {/* Wishlist Button */}
-            <button onClick={() => openSidebar('wishlist')} className="p-2 text-gray-600 dark:text-gray-300 hover:text-pink-600 transition relative">
+            <button aria-label="Danh sách yêu thích" onClick={() => openSidebar('wishlist')} className="p-2 text-gray-600 dark:text-gray-300 hover:text-pink-600 transition relative">
               <Heart size={20} />
               {mounted && totalWishlistItems > 0 && (
                 <span className="absolute -top-1 -right-1 w-4 h-4 bg-pink-500 text-white text-[9px] font-bold flex items-center justify-center rounded-full">
@@ -48,8 +46,7 @@ export default function Header() {
               )}
             </button>
 
-            {/* Cart Button */}
-            <button onClick={() => openSidebar('cart')} className="p-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 transition relative">
+            <button aria-label="Giỏ hàng" onClick={() => openSidebar('cart')} className="p-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 transition relative">
               <ShoppingCart size={20} />
               {mounted && totalCartItems > 0 && (
                 <span className="absolute -top-1 -right-1 w-4 h-4 bg-blue-600 text-white text-[9px] font-bold flex items-center justify-center rounded-full">
@@ -59,7 +56,7 @@ export default function Header() {
             </button>
 
             {mounted && (
-              <button onClick={() => setTheme(theme === "dark" ? "light" : "dark")} className="p-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 transition">
+              <button aria-label="Đổi giao diện sáng tối" onClick={() => setTheme(theme === "dark" ? "light" : "dark")} className="p-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 transition">
                 {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
               </button>
             )}
