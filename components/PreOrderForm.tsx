@@ -1,53 +1,80 @@
 "use client";
 
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
 import toast from 'react-hot-toast';
+
+// 1. Khai báo Schema Validate bằng Zod
+const formSchema = z.object({
+  name: z.string().min(2, "Tên quá ngắn"),
+  phone: z.string().regex(/^(0|\+84)[0-9]{9,10}$/, "Số điện thoại không hợp lệ"),
+  email: z.string().email("Định dạng email không đúng"),
+});
+
+type FormData = z.infer<typeof formSchema>;
 
 export default function PreOrderForm() {
   const [isLoading, setIsLoading] = useState(false);
+  
+  const { register, handleSubmit, reset, formState: { errors } } = useForm<FormData>({
+    resolver: zodResolver(formSchema),
+  });
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const onSubmit = async (data: FormData) => {
     setIsLoading(true);
-    
-    // Giả lập độ trễ gọi API Webhook
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    
-    toast.success("Đăng ký thành công! Chúng tôi sẽ liên hệ sớm nhất.", {
-      style: { borderRadius: '12px', background: '#030712', color: '#fff', border: '1px solid #1e3a8a' },
-    });
-    
-    setIsLoading(false);
-    (e.target as HTMLFormElement).reset();
+    try {
+      const response = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        toast.success("Đăng ký thành công! Dữ liệu đã gửi qua Webhook.", {
+          style: { borderRadius: '12px', background: '#030712', color: '#fff', border: '1px solid #1e3a8a' },
+        });
+        reset(); // Xóa trắng form
+      } else {
+        toast.error("Lỗi khi gửi dữ liệu!");
+      }
+    } catch (error) {
+      toast.error("Không thể kết nối đến máy chủ.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-4 max-w-lg mx-auto pt-6 text-left">
+    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4 max-w-lg mx-auto pt-6 text-left">
       <div className="flex flex-col sm:flex-row gap-4">
-        <input 
-          type="text" 
-          name="name"
-          placeholder="Họ và tên" 
-          required
-          className="flex-1 px-5 py-3.5 rounded-xl text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm bg-white border border-transparent shadow-inner"
-        />
-        <input 
-          type="tel" 
-          name="phone"
-          placeholder="Số điện thoại" 
-          required
-          pattern="[0-9]{10,11}"
-          title="Vui lòng nhập số điện thoại hợp lệ (10-11 số)"
-          className="flex-1 px-5 py-3.5 rounded-xl text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm bg-white border border-transparent shadow-inner"
-        />
+        <div className="flex-1">
+          <input 
+            {...register("name")}
+            placeholder="Họ và tên" 
+            className="w-full px-5 py-3.5 rounded-xl text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm bg-white border border-transparent shadow-inner"
+          />
+          {errors.name && <p className="text-red-300 text-xs mt-1 ml-1">{errors.name.message}</p>}
+        </div>
+        <div className="flex-1">
+          <input 
+            {...register("phone")}
+            placeholder="Số điện thoại" 
+            className="w-full px-5 py-3.5 rounded-xl text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm bg-white border border-transparent shadow-inner"
+          />
+          {errors.phone && <p className="text-red-300 text-xs mt-1 ml-1">{errors.phone.message}</p>}
+        </div>
       </div>
-      <input 
-        type="email" 
-        name="email"
-        placeholder="Nhập địa chỉ email của bạn..." 
-        required
-        className="w-full px-5 py-3.5 rounded-xl text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm bg-white border border-transparent shadow-inner"
-      />
+      <div>
+        <input 
+          {...register("email")}
+          placeholder="Nhập địa chỉ email của bạn..." 
+          className="w-full px-5 py-3.5 rounded-xl text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm bg-white border border-transparent shadow-inner"
+        />
+        {errors.email && <p className="text-red-300 text-xs mt-1 ml-1">{errors.email.message}</p>}
+      </div>
+      
       <button 
         type="submit" 
         disabled={isLoading}
@@ -60,7 +87,7 @@ export default function PreOrderForm() {
         )}
       </button>
       <p className="text-center text-xs text-blue-200/80 mt-2">
-        *Thông tin của bạn sẽ được bảo mật tuyệt đối theo chính sách của Realme.
+        *Dữ liệu đang được gửi bảo mật qua Webhook API nội bộ.
       </p>
     </form>
   );

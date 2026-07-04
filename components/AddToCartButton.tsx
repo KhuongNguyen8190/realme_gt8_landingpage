@@ -1,16 +1,14 @@
 "use client";
 
-import { useCartStore } from "@/store/useCartStore";
+import { useStore } from "@/store/useStore";
 import toast from "react-hot-toast";
 
 export default function AddToCartButton() {
-  const addItem = useCartStore((state) => state.addItem);
+  const addToCart = useStore((state) => state.addToCart);
 
   const handleAddToCart = () => {
-    addItem({ id: "realme-gt8-pro", name: "Realme GT8 Pro", price: 15990000, quantity: 1 });
-    toast.success("Đã thêm vào giỏ hàng!", {
-      style: { borderRadius: '12px', background: '#030712', color: '#fff' },
-    });
+    addToCart({ id: "realme-gt8-pro", name: "Realme GT8 Pro", price: 15990000 });
+    toast.success("Đã thêm vào giỏ hàng!", { style: { borderRadius: '12px', background: '#030712', color: '#fff' } });
   };
 
   return (

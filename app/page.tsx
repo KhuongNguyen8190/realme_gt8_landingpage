@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import AddToCartButton from '@/components/AddToCartButton';
+import WishlistButton from '@/components/WishlistButton';
 import HeroImage from '@/components/HeroImage';
 import ScrollReveal from '@/components/ScrollReveal';
 import PreOrderForm from '@/components/PreOrderForm';
@@ -48,11 +49,19 @@ export default function LandingPage() {
               Sức mạnh tối thượng từ vi xử lý thế hệ mới, hệ thống tản nhiệt buồng hơi độc quyền và màn hình gaming tần số quét siêu cao. Sinh ra để thống trị mọi tựa game.
             </p>
             
-            <div className="grid grid-cols-2 gap-3 sm:gap-4 pt-4 w-full max-w-[320px] sm:max-w-[360px] mx-auto lg:mx-0">
-              <AddToCartButton />
-              <a href="#features" className="w-full h-full px-2 sm:px-6 py-3.5 sm:py-4 bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-center rounded-xl font-bold text-xs sm:text-sm hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors flex items-center justify-center whitespace-nowrap">
-                Khám Phá
-              </a>
+            {/* Cấu trúc Flexbox mới: Ép 3 nút giãn đều và tách rời nhau hoàn toàn */}
+            <div className="flex flex-row gap-2 sm:gap-3 pt-4 w-full max-w-[360px] sm:max-w-[420px] mx-auto lg:mx-0 items-stretch">
+              <div className="flex-1 flex">
+                <AddToCartButton />
+              </div>
+              <div className="flex-none flex">
+                <WishlistButton />
+              </div>
+              <div className="flex-1 flex">
+                <a href="#features" className="w-full flex items-center justify-center px-2 sm:px-6 py-3.5 sm:py-4 bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-center rounded-xl font-bold text-xs sm:text-sm hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors whitespace-nowrap">
+                  Khám Phá
+                </a>
+              </div>
             </div>
           </div>
 
@@ -146,6 +155,7 @@ export default function LandingPage() {
           </div>
         </ScrollReveal>
       </section>
+
       <Footer />
     </main>
   );

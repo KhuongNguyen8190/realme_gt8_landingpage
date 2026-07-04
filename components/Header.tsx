@@ -2,21 +2,32 @@
 
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
-import { Moon, Sun, ShoppingCart, MessageCircle } from "lucide-react";
-import { useCartStore } from "@/store/useCartStore";
+import { Moon, Sun, ShoppingCart, Heart } from "lucide-react";
+import { useStore } from "@/store/useStore"; // Trỏ vào Store mới
 import CartSidebar from "./CartSidebar";
 
 export default function Header() {
   const [mounted, setMounted] = useState(false);
-  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [activeSidebarTab, setActiveSidebarTab] = useState<'cart'|'wishlist'>('cart');
+  
   const { theme, setTheme } = useTheme();
   
-  const items = useCartStore((state) => state.items);
-  const totalItems = items.reduce((acc, item) => acc + item.quantity, 0);
+  // Đọc state từ Zustand
+  const cart = useStore((state) => state.cart);
+  const wishlist = useStore((state) => state.wishlist);
+  
+  const totalCartItems = cart.reduce((acc, item) => acc + item.quantity, 0);
+  const totalWishlistItems = wishlist.length;
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  const openSidebar = (tab: 'cart' | 'wishlist') => {
+    setActiveSidebarTab(tab);
+    setIsSidebarOpen(true);
+  };
 
   return (
     <>
@@ -26,41 +37,37 @@ export default function Header() {
             GT8<span className="text-blue-600">Pro</span>
           </h1>
           
-          <nav className="hidden md:flex gap-8 text-sm font-semibold">
-            <a href="#features" className="hover:text-blue-600 dark:hover:text-blue-400 transition">Tính năng</a>
-            <a href="#specs" className="hover:text-blue-600 dark:hover:text-blue-400 transition">Thông số</a>
-            <a href="#pre-order" className="hover:text-blue-600 dark:hover:text-blue-400 transition">Đặt trước</a>
-          </nav>
-
-          <div className="flex items-center gap-1 sm:gap-3 z-50">
-            <button className="p-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition">
-              <MessageCircle size={20} />
+          <div className="flex items-center gap-2 sm:gap-3 z-50">
+            {/* Wishlist Button */}
+            <button onClick={() => openSidebar('wishlist')} className="p-2 text-gray-600 dark:text-gray-300 hover:text-pink-600 transition relative">
+              <Heart size={20} />
+              {mounted && totalWishlistItems > 0 && (
+                <span className="absolute -top-1 -right-1 w-4 h-4 bg-pink-500 text-white text-[9px] font-bold flex items-center justify-center rounded-full">
+                  {totalWishlistItems}
+                </span>
+              )}
             </button>
 
-            <button onClick={() => setIsCartOpen(true)} className="p-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition relative">
+            {/* Cart Button */}
+            <button onClick={() => openSidebar('cart')} className="p-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 transition relative">
               <ShoppingCart size={20} />
-              {mounted && totalItems > 0 && (
-                <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-[10px] font-bold flex items-center justify-center rounded-full">
-                  {totalItems}
+              {mounted && totalCartItems > 0 && (
+                <span className="absolute -top-1 -right-1 w-4 h-4 bg-blue-600 text-white text-[9px] font-bold flex items-center justify-center rounded-full">
+                  {totalCartItems}
                 </span>
               )}
             </button>
 
             {mounted && (
-              <button onClick={() => setTheme(theme === "dark" ? "light" : "dark")} className="p-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition">
+              <button onClick={() => setTheme(theme === "dark" ? "light" : "dark")} className="p-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 transition">
                 {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
               </button>
             )}
-
-            {/* Sửa class: Hiển thị nhỏ gọn trên Mobile thay vì ẩn hoàn toàn */}
-            <button className="px-3 py-1.5 sm:px-5 sm:py-2 bg-blue-600 text-white rounded-full text-xs sm:text-sm font-bold hover:bg-blue-700 transition shadow-md shrink-0 ml-1">
-              Mua Ngay
-            </button>
           </div>
         </div>
       </header>
 
-      <CartSidebar isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+      <CartSidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} initialTab={activeSidebarTab} />
     </>
   );
 }
