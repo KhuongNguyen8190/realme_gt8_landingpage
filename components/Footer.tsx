@@ -13,7 +13,7 @@ export default function Footer() {
               Kỷ nguyên Gaming Smartphone bứt phá giới hạn với sức mạnh tối thượng. Giải pháp hoàn hảo cho mọi tựa game AAA.
             </p>
             <p className="text-blue-200/70 dark:text-gray-500 text-sm font-semibold">
-              © 2026 realme GT8 Project. <br />
+              © 2026 realme GT8 Pro Project. <br />
               Phát triển bởi Nguyễn Duy Khương.
             </p>
           </div>

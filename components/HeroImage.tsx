@@ -16,7 +16,7 @@ export default function HeroImage() {
       
       <Image 
         src="/images/realme-gt8-hero.png"
-        alt="Realme GT8 Điện thoại Gaming"
+        alt="Realme GT8 Pro Điện thoại Gaming"
         fill
         priority
         sizes="(max-width: 768px) 100vw, 500px"

@@ -19,11 +19,11 @@ const Chatbot = dynamic(() => import('@/components/Chatbot'), {
 });
 
 export const metadata: Metadata = {
-  title: 'Realme GT8 - Kỷ nguyên Gaming Mới',
-  description: 'Trải nghiệm sức mạnh vô hạn với điện thoại gaming Realme GT8. Chip Snapdragon 8 Elite, tản nhiệt buồng hơi siêu lớn và sạc nhanh 100W.',
+  title: 'Realme GT8 Pro - Kỷ nguyên Gaming Mới',
+  description: 'Trải nghiệm sức mạnh vô hạn với điện thoại gaming Realme GT8 Pro. Chip Snapdragon 8 Elite Gen 5, tản nhiệt buồng hơi siêu lớn và sạc nhanh 100W.',
   openGraph: {
-    title: 'Realme GT8 - Kỷ nguyên Gaming Mới',
-    description: 'Trải nghiệm sức mạnh vô hạn với điện thoại gaming Realme GT8.',
+    title: 'Realme GT8 Pro - Kỷ nguyên Gaming Mới',
+    description: 'Trải nghiệm sức mạnh vô hạn với điện thoại gaming Realme GT8 Pro.',
     images: ['/images/og-realme-gt8.jpg'],
   },
 };
