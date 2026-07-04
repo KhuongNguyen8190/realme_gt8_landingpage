@@ -69,13 +69,13 @@ export default function LandingPage() {
               <div className="flex-1 flex">
                 <AddToCartButton />
               </div>
-              <div className="flex-none flex">
-                <WishlistButton />
-              </div>
               <div className="flex-1 flex">
                 <a href="#features" className="w-full flex items-center justify-center px-2 sm:px-6 py-3.5 sm:py-4 bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-center rounded-xl font-bold text-xs sm:text-sm hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors whitespace-nowrap">
                   Khám Phá
                 </a>
+              </div>
+              <div className="flex-none flex">
+                <WishlistButton />
               </div>
             </div>
           </div>
