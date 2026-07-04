@@ -6,12 +6,14 @@ import WishlistButton from '@/components/WishlistButton';
 import HeroImage from '@/components/HeroImage';
 import ScrollReveal from '@/components/ScrollReveal';
 import PreOrderForm from '@/components/PreOrderForm';
+import Chatbot from '@/components/Chatbot';
+import ScrollTracker from '@/components/ScrollTracker';
 import { Toaster } from 'react-hot-toast';
 import { Cpu, Zap, ShieldCheck, Layers, Sliders, Smartphone } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Realme GT8 - Kỷ nguyên Gaming Mới',
-  description: 'Trải nghiệm sức mạnh vô hạn với điện thoại gaming Realme GT8. Chip Snapdragon 8 Elite, tản nhiệt buồng hơi siêu lớn và sạc nhanh 150W.',
+  description: 'Trải nghiệm sức mạnh vô hạn với điện thoại gaming Realme GT8. Chip Snapdragon 8 Elite, tản nhiệt buồng hơi siêu lớn và sạc nhanh 100W.',
   openGraph: {
     title: 'Realme GT8 - Kỷ nguyên Gaming Mới',
     description: 'Trải nghiệm sức mạnh vô hạn với điện thoại gaming Realme GT8.',
@@ -23,7 +25,17 @@ export default function LandingPage() {
   return (
     <main className="bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 font-sans transition-colors duration-300 relative min-h-screen">
       <Header />
-      <Toaster position="bottom-right" />
+      
+      {/* CẤU HÌNH LẠI TOASTER: Đẩy thông báo lên 90px để tránh đè lên nút Chatbot */}
+      <Toaster 
+        position="bottom-right" 
+        containerStyle={{
+          bottom: 90,
+          zIndex: 100,
+        }}
+      />
+      
+      <ScrollTracker /> 
 
       {/* Lớp nền luồng sáng */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none -z-10">
@@ -49,7 +61,6 @@ export default function LandingPage() {
               Sức mạnh tối thượng từ vi xử lý thế hệ mới, hệ thống tản nhiệt buồng hơi độc quyền và màn hình gaming tần số quét siêu cao. Sinh ra để thống trị mọi tựa game.
             </p>
             
-            {/* Cấu trúc Flexbox mới: Ép 3 nút giãn đều và tách rời nhau hoàn toàn */}
             <div className="flex flex-row gap-2 sm:gap-3 pt-4 w-full max-w-[360px] sm:max-w-[420px] mx-auto lg:mx-0 items-stretch">
               <div className="flex-1 flex">
                 <AddToCartButton />
@@ -157,6 +168,8 @@ export default function LandingPage() {
       </section>
 
       <Footer />
+      
+      <Chatbot />
     </main>
   );
 }
