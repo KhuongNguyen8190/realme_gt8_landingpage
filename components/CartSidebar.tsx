@@ -43,7 +43,7 @@ export default function CartSidebar({ isOpen, onClose, initialTab = 'cart' }: Si
         }`}
       >
         <div className="flex items-center justify-between p-6 border-b border-gray-100 dark:border-gray-800">
-          <h2 className="text-xl font-bold">Menu Của Bạn</h2>
+          <h2 className="text-xl font-bold">Danh Sách Của Bạn</h2>
           <button onClick={onClose} className="p-2 text-gray-400 hover:text-gray-900 dark:hover:text-white rounded-full bg-gray-100 dark:bg-gray-800">
             <X size={20} />
           </button>
