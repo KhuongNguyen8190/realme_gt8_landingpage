@@ -1,15 +1,22 @@
 import { Metadata } from 'next';
+import dynamic from 'next/dynamic';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import AddToCartButton from '@/components/AddToCartButton';
 import WishlistButton from '@/components/WishlistButton';
 import HeroImage from '@/components/HeroImage';
 import ScrollReveal from '@/components/ScrollReveal';
-import PreOrderForm from '@/components/PreOrderForm';
-import Chatbot from '@/components/Chatbot';
 import ScrollTracker from '@/components/ScrollTracker';
 import { Toaster } from 'react-hot-toast';
 import { Cpu, Zap, ShieldCheck, Layers, Sliders, Smartphone } from 'lucide-react';
+
+const PreOrderForm = dynamic(() => import('@/components/PreOrderForm'), {
+  loading: () => <div className="w-full max-w-md mx-auto h-56 bg-blue-500/30 animate-pulse rounded-2xl mt-4"></div>,
+});
+
+const Chatbot = dynamic(() => import('@/components/Chatbot'), {
+  loading: () => <div className="fixed bottom-6 right-6 w-14 h-14 bg-gray-200 dark:bg-gray-800 animate-pulse rounded-full z-[100] shadow-lg"></div>,
+});
 
 export const metadata: Metadata = {
   title: 'Realme GT8 - Kỷ nguyên Gaming Mới',
@@ -26,7 +33,6 @@ export default function LandingPage() {
     <main className="bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 font-sans transition-colors duration-300 relative min-h-screen">
       <Header />
       
-      {/* CẤU HÌNH LẠI TOASTER: Đẩy thông báo lên 90px để tránh đè lên nút Chatbot */}
       <Toaster 
         position="bottom-right" 
         containerStyle={{
@@ -37,13 +43,11 @@ export default function LandingPage() {
       
       <ScrollTracker /> 
 
-      {/* Lớp nền luồng sáng */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none -z-10">
         <div className="absolute top-[5%] right-[-10%] w-[260px] sm:w-[500px] h-[280px] sm:h-[500px] bg-indigo-500/15 dark:bg-indigo-500/5 rounded-full blur-[80px] sm:blur-[120px]"></div>
         <div className="absolute top-[25%] left-[-10%] w-[200px] sm:w-[400px] h-[220px] sm:h-[400px] bg-cyan-500/15 dark:bg-cyan-500/5 rounded-full blur-[70px] sm:blur-[100px]"></div>
       </div>
 
-      {/* HERO SECTION */}
       <section className="relative pt-24 pb-16 lg:pb-24"> 
         <div className="container mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center z-10">
           
@@ -81,7 +85,6 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* FEATURES SECTION */}
       <section id="features" className="py-20 bg-gray-50 dark:bg-gray-900/40 border-y border-gray-100 dark:border-gray-900 transition-colors duration-300">
         <div className="container mx-auto px-6">
           <ScrollReveal>
@@ -113,7 +116,6 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* TECHNICAL SPECS SECTION */}
       <section id="specs" className="py-20 transition-colors duration-300">
         <div className="container mx-auto px-6 max-w-4xl">
           <ScrollReveal direction="left">
@@ -154,7 +156,6 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* REGISTRATION FORM SECTION */}
       <section id="pre-order" className="py-16 bg-gradient-to-br from-blue-600 to-indigo-700 text-white rounded-3xl mx-4 sm:mx-6 mb-12 shadow-xl shadow-blue-500/20">
         <ScrollReveal>
           <div className="container mx-auto px-4 sm:px-6 text-center max-w-2xl space-y-4">
@@ -166,9 +167,7 @@ export default function LandingPage() {
           </div>
         </ScrollReveal>
       </section>
-
       <Footer />
-      
       <Chatbot />
     </main>
   );

@@ -25,7 +25,7 @@ export async function POST(req: Request) {
     Câu hỏi của khách: "${message}"`;
 
     // SỬA LỖI TẠI ĐÂY: Đổi sang gemini-pro để đảm bảo tương thích 100% với mọi API Key
-    const model = genAI.getGenerativeModel({ model: "models/gemini-3.1-flash-lite" });
+    const model = genAI.getGenerativeModel({ model: "models/gemini-3.1-pro-preview" });
     const result = await model.generateContent(prompt);
     const response = await result.response;
     const text = response.text();

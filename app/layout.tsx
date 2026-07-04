@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="vi" suppressHydrationWarning>
-      <body className={`${inter.className} antialiased`}>
+      <body className={`${inter.className} overflow-x-hidden w-full relative antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
