@@ -23,14 +23,19 @@ export default function WishlistButton() {
   return (
     <button 
       onClick={handleWishlist}
-      aria-label={isWishlisted ? "Bỏ yêu thích" : "Thêm vào yêu thích"} // <-- THÊM DÒNG NÀY ĐỂ XÓA THẺ VÀNG
       className={`h-full px-4 sm:px-5 flex items-center justify-center rounded-xl border-2 transition-all active:scale-95 ${
         isWishlisted 
           ? 'border-pink-500 bg-pink-50 text-pink-500 dark:bg-pink-900/30' 
           : 'border-gray-200 dark:border-gray-800 text-gray-400 hover:border-pink-300 hover:text-pink-400 bg-white dark:bg-gray-900'
       }`}
     >
-      <Heart size={20} className={isWishlisted ? "fill-pink-500" : ""} />
+      {/* 1. Báo cho hệ thống biết đây chỉ là hình trang trí, đừng đọc nó */}
+      <Heart size={20} className={isWishlisted ? "fill-pink-500" : ""} aria-hidden="true" focusable="false" />
+      
+      {/* 2. Cung cấp chữ thật cho hệ thống đọc, giấu khỏi mắt người dùng */}
+      <span className="sr-only">
+        {isWishlisted ? "Bỏ yêu thích" : "Thêm vào yêu thích"}
+      </span>
     </button>
   );
 }
