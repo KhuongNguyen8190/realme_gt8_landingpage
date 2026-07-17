@@ -23,7 +23,7 @@ export default function WishlistButton() {
   return (
     <button 
       onClick={handleWishlist}
-      aria-label={isWishlisted ? "Bỏ yêu thích" : "Thêm vào yêu thích"} // <-- THÊM DÒNG NÀY ĐỂ XÓA THẺ VÀNG
+      aria-label={isWishlisted ? "Bỏ yêu thích" : "Thêm vào yêu thích"}
       className={`h-full px-4 sm:px-5 flex items-center justify-center rounded-xl border-2 transition-all active:scale-95 ${
         isWishlisted 
           ? 'border-pink-500 bg-pink-50 text-pink-500 dark:bg-pink-900/30' 
