@@ -1,26 +1,30 @@
-# --- GIAI ĐOẠN 1: Build ứng dụng React ---
-FROM node:18-alpine AS builder
+# --- GIAI ĐOẠN 1: Cài đặt dependencies và Build ---
+FROM node:20-alpine AS builder
 WORKDIR /app
 
-# Copy file quản lý thư viện trước để tận dụng cache
+# Copy các file cấu hình package
 COPY package.json package-lock.json ./
-RUN npm install
+RUN npm ci
 
-# Copy toàn bộ mã nguồn và tiến hành build
+# Copy toàn bộ mã nguồn
 COPY . .
+
+# Nếu project của em cần biến môi trường lúc build, hãy khai báo ở đây (ví dụ: ENV NEXT_PUBLIC_API_URL=...)
 RUN npm run build
 
-# --- GIAI ĐOẠN 2: Dùng Nginx để serve static files ---
-FROM nginx:alpine
+# --- GIAI ĐOẠN 2: Chạy Production Server ---
+FROM node:20-alpine AS runner
+WORKDIR /app
 
-# Copy kết quả build từ giai đoạn 1 vào thư mục công khai của Nginx
-COPY --from=builder /app/dist /usr/share/nginx/html
+ENV NODE_ENV=production
+ENV PORT=3000
+ENV HOSTNAME="0.0.0.0"
 
-# (Lưu ý: Nếu project của em dùng thư mục build là "build" thay vì "dist", hãy đổi chữ "dist" thành "build" nhé)
+# Copy các file cần thiết từ giai đoạn build
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
 
-# Mở cổng 80 cho web server
-EXPOSE 80
+EXPOSE 3000
 
-# Chạy Nginx ở chế độ foreground
-CMD ["nginx", "-g", "daemon off;"]
-
+CMD ["node", "server.js"]
