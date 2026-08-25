@@ -4,7 +4,7 @@ WORKDIR /app
 
 # Copy các file cấu hình package
 COPY package.json package-lock.json ./
-RUN npm ci
+RUN npm install
 
 # Copy toàn bộ mã nguồn
 COPY . .
