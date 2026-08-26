@@ -1,4 +1,4 @@
-name: Build and Push React Docker Image
+name: Build, Push Docker and Deploy to Vercel
 
 on:
   push:
@@ -27,5 +27,12 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: ${{ secrets.DOCKER_USERNAME }}/realme-gt8-landingpage:latest 
-        # (Em có thể đổi tên image phía trên cho khớp với tên repo của em)
+        tags: ${{ secrets.DOCKER_USERNAME }}/realme-gt8-landingpage:latest
+
+    - name: Deploy to Vercel
+      uses: amondnet/vercel-action@v25
+      with:
+        vercel-token: ${{ secrets.VERCEL_TOKEN }}
+        vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+        vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+        vercel-args: '--prod'

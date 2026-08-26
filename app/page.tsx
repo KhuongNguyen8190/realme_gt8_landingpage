@@ -14,8 +14,6 @@ const PreOrderForm = dynamic(() => import('@/components/PreOrderForm'), {
   loading: () => <div className="w-full max-w-md mx-auto h-56 bg-blue-500/30 animate-pulse rounded-2xl mt-4"></div>,
 });
 
-const testError: string = 12345;
-
 const Chatbot = dynamic(() => import('@/components/Chatbot'), {
   loading: () => <div className="fixed bottom-6 right-6 w-14 h-14 bg-gray-200 dark:bg-gray-800 animate-pulse rounded-full z-[100] shadow-lg"></div>,
 });
